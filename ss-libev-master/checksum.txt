@@ -1,0 +1,21 @@
+SHA1 checksum for build 180921-ce6989a
+  obfs-local-x64.exe:
+    c48a2b43a072927440404b6f8ffa85d01f75c16d
+  obfs-local-x86.exe:
+    9c5fba786a3fa30ce9c9a77832f0cfd24909ade9
+  obfs-server-x64.exe:
+    33fb61e28a712b69e18d7386657740970f410abe
+  obfs-server-x86.exe:
+    a749822bd8d900ebcb9f627eca27dfce8beed3a0
+  ss-local-x64.exe:
+    15e2ef4e6cd581b8ce5e8b557bbc5423c8e608de
+  ss-local-x86.exe:
+    d9f9722c08fa5a656a2ebbf026a5e09b2b6105b2
+  ss-server-x64.exe:
+    61086a82630c6f823bcbad56fe3ddedafcdb5fc5
+  ss-server-x86.exe:
+    83d7afce117dae496daa7ff14c8d651370d71538
+  ss-tunnel-x64.exe:
+    8609bfa5953e941ffccbec39838a15a7bb16a23d
+  ss-tunnel-x86.exe:
+    e34cecc8efb8c475cadcc210e06ef27315ea2be2
