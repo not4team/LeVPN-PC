@@ -1,0 +1,17 @@
+.select-label {
+  display: inline-block;
+}
+.select-div {
+  display: inline-block;
+  margin-left: 10px;
+}
+.btn-start {
+  width: 140px;
+  height: 140px;
+  background-color: #000000;
+  color: #ffffff;
+  border-radius: 100%;
+  text-align: center;
+  margin: 100px auto;
+  line-height: 140px;
+}

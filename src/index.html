@@ -1,21 +1,63 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
 
-    <title></title>
-  </head>
-  <body>
-    Well hey there!!!
-    <div class="dropdown">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Dropdown button
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="#">Action</a>
-        <a class="dropdown-item" href="#">Another action</a>
-        <a class="dropdown-item" href="#">Something else here</a>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="index.css">
+  <title></title>
+</head>
+
+<body>
+  <div id="app">
+    <div style="text-align: center; margin-top: 50px;">
+      <div class="select-label">线路选择:</div>
+      <div class="dropdown select-div">
+        <button id="select-value" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        </div>
       </div>
     </div>
-  </body>
+    <div class="btn-start">
+      开启
+    </div>
+  </div>
+  <script src="renderer.js"></script>
+  <script>
+    import { start, stop } from "./ss.js"
+
+    let profiles = [];
+    let currentIndex = 0;
+
+    $.get("http://vpn1.shixq.com:8055/getAllprofile", function (data, status) {
+      profiles = data.profiles;
+      if (profiles.length > 0) {
+        for (let i = 0; i < profiles.length; i++) {
+          $(".dropdown-menu").append("<a class='dropdown-item' href='javascript:void(0);' index=" + i + ">" + profiles[i].Name + "</a>");
+        }
+        $("#select-value").text(profiles[0].Name)
+        $(".dropdown-item").click(function () {
+          let value = $(this).text();
+          currentIndex = $(this).attr("index");
+          $("#select-value").text(value);
+        });
+      }
+    });
+
+    $(".btn-start").click(function () {
+      let value = $(this).text();
+      console.log("value:" + value);
+      if (value == "开启") {
+        $(this).text("停止");
+        start(profiles[currentIndex]);
+      } else {
+        $(this).text("开启");
+        stop(profiles[currentIndex]);
+      }
+    });
+  </script>
+</body>
+
 </html>
