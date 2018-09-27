@@ -13,20 +13,18 @@
     <div style="text-align: center; margin-top: 50px;">
       <div class="select-label">线路选择:</div>
       <div class="dropdown select-div">
-        <button id="select-value" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+        <button id="select-value" class="btn btn-secondary dropdown-toggle unselectable" type="button" id="dropdownMenuButton"
           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         </div>
       </div>
     </div>
-    <div class="btn-start">
-      开启
-    </div>
+    <div class="btn-start">开启</div>
   </div>
   <script src="renderer.js"></script>
   <script>
-    import { start, stop } from "./ss.js"
+    import ssLocal from "./ss.js"
 
     let profiles = [];
     let currentIndex = 0;
@@ -50,13 +48,18 @@
       let value = $(this).text();
       console.log("value:" + value);
       if (value == "开启") {
+        console.log()
         $(this).text("停止");
-        start(profiles[currentIndex]);
+        ssLocal.start(profiles[currentIndex]);
       } else {
         $(this).text("开启");
-        stop(profiles[currentIndex]);
+        ssLocal.stop();
       }
     });
+
+    window.onbeforeunload = function (event) {
+      ssLocal.stop();
+    };
   </script>
 </body>
 

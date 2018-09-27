@@ -15,7 +15,7 @@ const createWindow = () => {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
-    icon: __dirname + "/ic_logo.png"
+    icon: __dirname + "/ico.png"
   });
 
   // and load the index.html of the app.
@@ -32,7 +32,7 @@ const createWindow = () => {
     mainWindow = null;
   });
 
-  let tray = new Tray(__dirname + "/ic_logo.png");
+  let tray = new Tray(__dirname + "/ico.png");
   const contextMenu = Menu.buildFromTemplate([
     { label: "使用说明", type: "normal" },
     { label: "关于", type: "normal" }
