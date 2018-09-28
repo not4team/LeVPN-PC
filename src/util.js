@@ -64,4 +64,32 @@ util.testConnection = callback => {
     });
 };
 
+util.killByPid = pid => {
+  let kill = require("tree-kill");
+  kill(pid);
+};
+
+util.killByName = name => {
+  let cmd = process.platform == "win32" ? "tasklist" : "ps aux";
+  let exec = require("child_process").exec;
+  console.log("killByName:" + name + ",cmd:" + cmd);
+  exec(cmd, function(err, stdout, stderr) {
+    if (err) {
+      console.log("==============");
+      return console.log(err);
+    }
+    // console.log(`stdout: ${stdout}`);
+    // console.log(`stderr: ${stderr}`);
+    stdout.split("\n").filter(function(line) {
+      let p = line.trim().split(/\s+/);
+      let pname = process.platform == "win32" ? p[0] : p[10];
+      let pid = p[1];
+      if (pname.toLowerCase().indexOf(name) >= 0 && parseInt(pid)) {
+        console.log(pname, pid);
+        util.killByPid(pid);
+      }
+    });
+  });
+};
+
 export default util;

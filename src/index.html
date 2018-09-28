@@ -66,10 +66,14 @@
       } else {
         $(this).text("开启");
         ssLocal.stop();
+        $("#btn-test").text("点击测试连接");
       }
     });
 
     $("#btn-test").click(function () {
+      if ($(".btn-start").text() === "开启") {
+        return alert("请先开启连接");
+      }
       let btn = $(this);
       let text = btn.text();
       if (text === "点击测试连接") {

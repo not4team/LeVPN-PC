@@ -1,4 +1,5 @@
 import { app, BrowserWindow, Menu, Tray } from "electron";
+import Util from "./util.js";
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
@@ -24,6 +25,10 @@ const createWindow = () => {
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
 
+  mainWindow.on("close", e => {
+    // e.preventDefault();
+  });
+
   // Emitted when the window is closed.
   mainWindow.on("closed", () => {
     // Dereference the window object, usually you would store windows
@@ -39,6 +44,9 @@ const createWindow = () => {
   ]);
   tray.setToolTip("LeVPN");
   tray.setContextMenu(contextMenu);
+
+  let pName = process.platform == "win32" ? "ss-local-x64.exe" : "ss-local";
+  Util.killByName(pName);
 };
 
 // This method will be called when Electron has finished

@@ -12,9 +12,19 @@ export class SSLocal {
   start(profile) {
     let password = Util.aesDecrypter(profile.Password);
     console.log("start the ss password:" + password);
-    let cmdStr = `ss-local -s ${profile.Host} -p ${
-      profile.RemotePort
-    } -l 1081 -k ${password} -m ${profile.Method}`;
+    let cmdStr = "";
+    switch (process.platform) {
+      case "win32":
+        cmdStr = `ss-local-x64.exe -s ${profile.Host} -p ${
+          profile.RemotePort
+        } -l 1081 -k ${password} -m ${profile.Method}`;
+        break;
+      default:
+        cmdStr = `ss-local -s ${profile.Host} -p ${
+          profile.RemotePort
+        } -l 1081 -k ${password} -m ${profile.Method}`;
+        break;
+    }
     this.my_process = exec(
       cmdStr,
       { cwd: __dirname },
@@ -32,8 +42,9 @@ export class SSLocal {
 
   stop() {
     if (this.my_process) {
-      console.log("stop the ss");
-      this.my_process.kill("SIGKILL");
+      console.log("stop the ss:" + this.my_process.pid);
+      // this.my_process.kill("SIGKILL");
+      Util.killByPid(this.my_process.pid);
     }
   }
 }
