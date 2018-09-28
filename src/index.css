@@ -21,3 +21,9 @@
   -webkit-user-select: none;
   -ms-user-select: none;
 }
+.test {
+  text-align: center;
+}
+.test div {
+  margin-top: 10px;
+}

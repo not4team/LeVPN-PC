@@ -1,4 +1,4 @@
-import aesDecrypter from "./aes.js";
+import Util from "./util.js";
 import { exec } from "child_process";
 
 export class SSLocal {
@@ -10,7 +10,7 @@ export class SSLocal {
     return this.instance;
   }
   start(profile) {
-    let password = aesDecrypter(profile.Password);
+    let password = Util.aesDecrypter(profile.Password);
     console.log("start the ss password:" + password);
     let cmdStr = `ss-local -s ${profile.Host} -p ${
       profile.RemotePort

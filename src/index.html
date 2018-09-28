@@ -21,10 +21,20 @@
       </div>
     </div>
     <div class="btn-start">开启</div>
+    <div class="test">
+      <button id="btn-test" type="button" class="btn btn-dark">点击测试连接</button>
+      <div class="alert alert-success" role="alert" style="display: none">
+        连接成功!
+      </div>
+      <div class="alert alert-danger" role="alert" style="display: none">
+        连接失败，请尝试其他服务器!
+      </div>
+    </div>
   </div>
   <script src="renderer.js"></script>
   <script>
     import ssLocal from "./ss.js"
+    import Util from "./util.js"
 
     let profiles = [];
     let currentIndex = 0;
@@ -40,20 +50,42 @@
           let value = $(this).text();
           currentIndex = $(this).attr("index");
           $("#select-value").text(value);
+          if ($(".btn-start").text() === "停止") {
+            ssLocal.stop();
+            ssLocal.start(profiles[currentIndex]);
+          }
         });
       }
     });
 
     $(".btn-start").click(function () {
       let value = $(this).text();
-      console.log("value:" + value);
       if (value == "开启") {
-        console.log()
         $(this).text("停止");
         ssLocal.start(profiles[currentIndex]);
       } else {
         $(this).text("开启");
         ssLocal.stop();
+      }
+    });
+
+    $("#btn-test").click(function () {
+      let btn = $(this);
+      let text = btn.text();
+      if (text === "点击测试连接") {
+        btn.text("连接中...");
+        $(".alert-success").css({ display: "none" });
+        $(".alert-danger").css({ display: "none" });
+        Util.testConnection(function (result) {
+          btn.text("点击测试连接");
+          if (result === "success") {
+            $(".alert-success").css({ display: "block" });
+            $(".alert-danger").css({ display: "none" });
+          } else {
+            $(".alert-danger").css({ display: "block" });
+            $(".alert-success").css({ display: "none" });
+          }
+        });
       }
     });
 

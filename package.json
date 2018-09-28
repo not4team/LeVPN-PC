@@ -52,6 +52,7 @@
     "electron-squirrel-startup": "^1.0.0",
     "jquery": "^3.3.1",
     "popper.js": "^1.14.4",
+    "socks5-https-client": "^1.2.1",
     "tether": "^1.4.4"
   },
   "devDependencies": {
