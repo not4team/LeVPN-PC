@@ -1,4 +1,6 @@
-const { exec } = require("child_process");
+import aesDecrypter from "./aes.js";
+import { exec } from "child_process";
+
 export class SSLocal {
   constructor() {}
   static getInstance() {
@@ -8,10 +10,11 @@ export class SSLocal {
     return this.instance;
   }
   start(profile) {
-    console.log("start the ss");
+    let password = aesDecrypter(profile.Password);
+    console.log("start the ss password:" + password);
     let cmdStr = `ss-local -s ${profile.Host} -p ${
       profile.RemotePort
-    } -l 1081 -k ${profile.Password} -m ${profile.Method}`;
+    } -l 1081 -k ${password} -m ${profile.Method}`;
     this.my_process = exec(
       cmdStr,
       { cwd: __dirname },
