@@ -1,5 +1,4 @@
-import { app, BrowserWindow, Menu, Tray } from "electron";
-import Util from "./util.js";
+import { app, BrowserWindow, Menu, Tray, shell } from "electron";
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
@@ -39,14 +38,24 @@ const createWindow = () => {
 
   let tray = new Tray(__dirname + "/ico.png");
   const contextMenu = Menu.buildFromTemplate([
-    { label: "使用说明", type: "normal" },
-    { label: "关于", type: "normal" }
+    {
+      label: "使用说明",
+      type: "normal",
+      click: (menuItem, browserWindow, event) => {
+        //https://notfour.blogspot.com
+        shell.openExternal("https://notfour.blogspot.com");
+      }
+    },
+    { label: "退出", type: "normal", role: "quit" }
   ]);
   tray.setToolTip("LeVPN");
   tray.setContextMenu(contextMenu);
+  tray.on("double-click", () => {
+    mainWindow.show();
+  });
 
-  let pName = process.platform == "win32" ? "ss-local-x64.exe" : "ss-local";
-  Util.killByName(pName);
+  // let pName = process.platform == "win32" ? "ss-local-x64.exe" : "ss-local";
+  // Util.killByName(pName);
 };
 
 // This method will be called when Electron has finished
