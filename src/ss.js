@@ -13,7 +13,7 @@ export class SSLocal {
   }
   start(profile) {
     let password = Util.aesDecrypter(profile.Password);
-    console.log("start the ss password:" + password + ",cwd:" + process.cwd());
+    console.log("start the ss cwd:" + process.cwd());
     let cmdStr = "";
     switch (process.platform) {
       case "win32":
