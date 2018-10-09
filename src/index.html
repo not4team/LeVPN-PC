@@ -66,6 +66,8 @@
       if (value == "开启") {
         $(this).text("停止");
         ssLocal.start(profiles[currentIndex]);
+        const { shell } = require('electron')
+        shell.openExternal("https://notfour.blogspot.com");
       } else {
         $(this).text("开启");
         ssLocal.stop();

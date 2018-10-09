@@ -1,4 +1,6 @@
 import { app, BrowserWindow, Menu, Tray, shell } from "electron";
+//改变tray作用域，防止被垃圾回收see https://electronjs.org/docs/faq#my-apps-windowtray-disappeared-after-a-few-minutes
+let tray = null;
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
@@ -36,7 +38,7 @@ const createWindow = () => {
     mainWindow = null;
   });
 
-  let tray = new Tray(__dirname + "/ico.png");
+  tray = new Tray(__dirname + "/ico.png");
   const contextMenu = Menu.buildFromTemplate([
     {
       label: "使用说明",
