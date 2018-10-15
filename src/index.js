@@ -45,7 +45,7 @@ const createWindow = () => {
       type: "normal",
       click: (menuItem, browserWindow, event) => {
         //https://notfour.blogspot.com
-        shell.openExternal("https://notfour.blogspot.com");
+        shell.openExternal("http://notfour.blogspot.com/2018/09/blog-post.html");
       }
     },
     { label: "退出", type: "normal", role: "quit" }
